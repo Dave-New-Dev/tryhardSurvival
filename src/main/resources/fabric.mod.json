@@ -3,13 +3,13 @@
 	"id": "tryhardsurvival",
 	"version": "${version}",
 	"name": "tryhardSurvival",
-	"description": "This is a mod for your safety. A mod for your survival. Dost thou dare to fall when I hast order thee not; stand thou must, and carry onwards, tryhard.",
+	"description": "This be a mod for thy safety. A mod to thy survival aid. Dost not thou dare to fall when I hast order thee not. Stand thou must, and carry onwards, tryhard.",
 	"authors": [
 		"DanPlus6"
 	],
 	"contact": {
 		"homepage": "https://localhost",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/Dave-New-Dev/tryhardSurvival"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/tryhardsurvival/icon.png",
