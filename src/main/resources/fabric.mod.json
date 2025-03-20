@@ -16,7 +16,7 @@
 	"environment": "client",
 	"entrypoints": {
 		"main": [
-			"tryhard.tryhardsurvival.TryhardSurvival"
+			"tryhard.tryhardsurvival.TryhardSurvivalLogger"
 		]
 	},
 	"mixins": [
