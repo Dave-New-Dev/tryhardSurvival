@@ -1,4 +1,4 @@
-# Goals:
+# Plans:
 ## 1. Add a threat level system (0-100)
 ###     - Threat values system (300 blocks):
 ####        - the bum -- 15; the bum's teammate -- 15
