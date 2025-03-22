@@ -24,6 +24,7 @@ public class TryhardSurvival implements ModInitializer {
 		int random_helloworld = random.nextInt(helloworlds.length);
 		LOGGER.info(String.join("<A>:",helloworlds[random_helloworld]));
 
-		HudLayerRegistrationCallback.EVENT.register(emergenciesHudDisplayer);
+		HudLayerRegistrationCallback emergenciesHudDisplayer;
+		HudLayerRegistrationCallback.EVENT.register(emergenciesHudDisplayer());
 	}
 }
