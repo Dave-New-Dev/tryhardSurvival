@@ -6,15 +6,21 @@ import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.util.Identifier;
-
-import static net.minecraft.entity.Entity.MoveEffect.EVENTS;
+import tryhard.tryhardsurvival.emergencies.dangerScoreMgmt;
 
 public final class emergenciesHudEntrypoint implements ClientModInitializer {
-    private final Identifier[] trumpets = {
+    private static final Identifier[] trumpets = {
             Identifier.of("tryhardsurvival","/textures/hud/emergency1.png"),
             Identifier.of("tryhardsurvival","/textures/hud/emergency2.png"),
             Identifier.of("tryhardsurvival","/textures/hud/emergency3.png")
     };
+
+    private static int trumpet = 0;
+    private int currentThreatScore = dangerScoreMgmt.getThreatScore();
+
+    if (currentThreatScore >= 20) {
+        trumpet = 1;
+    }
 
     @Override
     public void onInitializeClient() {
@@ -22,15 +28,22 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
     }
 
 
-    public static void onRenderGUI(DrawContext context, float partialTicks)
+    private static void onRenderGUI(DrawContext context, float partialTicks)
     {
-
         int x = 0;
         int y = 0;
         int w = 1280;
         int h = 720;
-        context.drawTexture(RenderLayer::getGuiTextured, placeholder, x, y,
+        context.drawTexture(RenderLayer::getGuiTextured, trumpets[trumpet], x, y,
                 0, 0, w, h, w, h);
+    }
+
+    public int getCurrentThreatScore() {
+        return currentThreatScore;
+    }
+
+    public void setCurrentThreatScore(int currentThreatScore) {
+        this.currentThreatScore = currentThreatScore;
     }
 }
 
