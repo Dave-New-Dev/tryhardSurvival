@@ -1,12 +1,10 @@
 package tryhard.tryhardsurvival;
 
 import net.fabricmc.api.ModInitializer;
-import tryhard.tryhardsurvival.emergencies.emergenciesHudDisplayer;
-import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class TryhardSurvival implements ModInitializer {
+public class LogHelloWorld implements ModInitializer {
 	public static final String MOD_ID = "tryhardsurvival";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -24,7 +22,5 @@ public class TryhardSurvival implements ModInitializer {
 		int random_helloworld = random.nextInt(helloworlds.length);
 		LOGGER.info(String.join("<A>:",helloworlds[random_helloworld]));
 
-		HudLayerRegistrationCallback emergenciesHudDisplayer;
-		HudLayerRegistrationCallback.EVENT.register(emergenciesHudDisplayer());
 	}
 }

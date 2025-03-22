@@ -16,10 +16,10 @@
 	"environment": "client",
 	"entrypoints": {
 		"main": [
-			"tryhard.tryhardsurvival.TryhardSurvival"
+			"tryhard.tryhardsurvival.LogHelloWorld"
 		],
 		"client": [
-			"tryhard.tryhardsurvival.emergencies.emergenciesHudDisplayer"
+			"tryhard.tryhardsurvival.emergencies.emergenciesHudEntrypoint"
 		]
 	},
 	"mixins": [
