@@ -1,11 +1,16 @@
 package tryhard.tryhardsurvival.emergencies;
 
+import com.mojang.brigadier.arguments.StringArgumentType;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public final class emergenciesHudEntrypoint implements ClientModInitializer {
@@ -34,6 +39,13 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
         if (emergencyLvl != 0) {
             HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerBefore(IdentifiedLayer.CHAT, trumpets[emergencyLvl], emergenciesHudEntrypoint::onRenderGUI));
         }
+
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("dangerscore")
+                .then(ClientCommandManager.argument("message", StringArgumentType.greedyString())
+                        .executes(context -> {
+                            context.getSource().sendFeedback(Text.of("Called /test_command."));
+                            return 1;
+                        }))));
     }
 
     private static void onRenderGUI(DrawContext drawContext, RenderTickCounter renderTickCounter) {
