@@ -33,17 +33,19 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        dangerScoreMgmt.init();
+
         int emergencyLvl = emergenciesHudEntrypoint.blowTrumpet();
         if (emergencyLvl != 0) {
             HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerBefore(IdentifiedLayer.CHAT, trumpets[emergencyLvl], emergenciesHudEntrypoint::onRenderGUI));
         }
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("dangerscore")
-                        .executes(context -> {
-                            String threatScore = String.valueOf(dangerScoreMgmt.getThreatScore());
-                            context.getSource().sendFeedback(Text.literal(String.join("<Angela>: The current threat score is",threatScore)));
-                            return 1;
-                        })));
+            .executes(context -> {
+                String threatScore = String.valueOf(dangerScoreMgmt.getThreatScore());
+                context.getSource().sendFeedback(Text.literal(String.join("<Angela>: The current threat score is",threatScore)));
+                return 1;
+            })));
     }
 
     private static void onRenderGUI(DrawContext drawContext, RenderTickCounter renderTickCounter) {

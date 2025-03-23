@@ -1,10 +1,11 @@
 package tryhard.tryhardsurvival.emergencies;
 
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.mob.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 
@@ -16,42 +17,51 @@ public class dangerScoreMgmt {
 
     private static final String BUM_NAME = "l_tryhard_l";
     private static final String BUM_UUID = "0507dee5-ecff-480f-97d2-ef23cd163876";
+    private static final String BOOMER_NAME = "placeholder";
+    private static final String BOOMER_UUID = "placeholder";
 
     private static final double DETECTION_RADIUS = 150.0;
 
-    public static void updateThreatScore(ServerWorld world, Vec3d playerPosition) {
-        threatScore = 0;
+    public static void init() {
+        ClientTickEvents.START_CLIENT_TICK.register(client -> {
+            if (client.player != null && client.world != null) {
+                updateThreatScore(client.player, client.world);
+            }
+        });
+    }
 
+    public static void updateThreatScore(PlayerEntity player, ClientWorld world) {
+        if (player == null || world == null) return;
+
+        // reset radar for every scan
+        threatScore = 0;
+        Vec3d playerPosition = player.getPos();
         Box detectionBox = new Box(playerPosition.subtract(DETECTION_RADIUS, DETECTION_RADIUS, DETECTION_RADIUS),
                 playerPosition.add(DETECTION_RADIUS, DETECTION_RADIUS, DETECTION_RADIUS));
 
         List<Entity> nearbyEntities = world.getEntitiesByClass(Entity.class, detectionBox, entity -> true);
 
         for (Entity entity : nearbyEntities) {
-            if (entity instanceof PlayerEntity player) {
+            // for players
+            if (entity instanceof PlayerEntity targetPlayer) {
                 // for the bum
-                if (player.getName().getString().equals(BUM_NAME) ||
-                        player.getUuid().toString().equals(BUM_UUID)) {
+                if (targetPlayer.getName().getString().equals(BUM_NAME) || targetPlayer.getUuid().toString().equals(BUM_UUID)) {
                     threatScore += 15;
                 }
-                // for other players
+                else if (targetPlayer.getName().getString().equals(BOOMER_NAME) || targetPlayer.getUuid().toString().equals(BOOMER_UUID)) {
+                    threatScore += 25;
+                }
                 else {
                     threatScore += 10;
                 }
-                // note 4 future: add another statement for the biggest bum in town
-            }
-            // for wither
-            else if (entity instanceof WitherEntity) {
+            } else if (entity instanceof WitherEntity) {
                 threatScore += 10;
-            }
-            // for the nuke
-            else if (entity instanceof CreeperEntity creeper) {
+            } else if (entity instanceof CreeperEntity creeper) {
                 if (creeper.isCharged()) {
                     threatScore += 10;
                 }
             }
         }
-
     }
 
     public static int getThreatScore() {
