@@ -16,7 +16,7 @@
 	"environment": "client",
 	"entrypoints": {
 		"main": [
-			"tryhard.tryhardsurvival.LogHelloWorld"
+			"tryhard.tryhardsurvival.mainEntrypoint"
 		],
 		"client": [
 			"tryhard.tryhardsurvival.emergencies.emergenciesHudEntrypoint"

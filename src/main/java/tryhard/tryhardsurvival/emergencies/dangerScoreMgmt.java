@@ -33,18 +33,19 @@ public class dangerScoreMgmt {
                 if (player.getName().getString().equals(BUM_NAME) ||
                         player.getUuid().toString().equals(BUM_UUID)) {
                     threatScore += 15;
-                } /*for other players*/ else {
+                }
+                // for other players
+                else {
                     threatScore += 10;
                 }
-                // note 4 future: add another statement for the owner
+                // note 4 future: add another statement for the biggest bum in town
             }
-            // wither
+            // for wither
             else if (entity instanceof WitherEntity) {
                 threatScore += 10;
             }
-            // charged creeper
-            else if (entity instanceof CreeperEntity) {
-                CreeperEntity creeper = (CreeperEntity) entity;
+            // for the nuke
+            else if (entity instanceof CreeperEntity creeper) {
                 if (creeper.isCharged()) {
                     threatScore += 10;
                 }
