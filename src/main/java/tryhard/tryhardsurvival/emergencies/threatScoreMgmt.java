@@ -11,10 +11,12 @@ import net.minecraft.util.math.Vec3d;
 
 import java.util.List;
 
-public class dangerScoreMgmt {
+public class threatScoreMgmt {
 
     private static int threatScore = 0;
 
+    private static final String URSELF_NAME = "DanPlus6";
+    private static final String URSELF_UUID = "51f808d5-2853-4b2a-bc41-14cb1b6ce048";
     private static final String BUM_NAME = "l_tryhard_l";
     private static final String BUM_UUID = "0507dee5-ecff-480f-97d2-ef23cd163876";
     private static final String BOOMER_NAME = "placeholder";
@@ -45,18 +47,20 @@ public class dangerScoreMgmt {
             // for players
             if (entity instanceof PlayerEntity targetPlayer) {
                 // for the bum
-                if (targetPlayer.getName().getString().equals(BUM_NAME) || targetPlayer.getUuid().toString().equals(BUM_UUID)) {
-                    threatScore += 15;
+                if (!targetPlayer.getName().getString().equals(URSELF_NAME) && !targetPlayer.getUuid().toString().equals(URSELF_UUID)) {
+                    if (targetPlayer.getName().getString().equals(BUM_NAME) || targetPlayer.getUuid().toString().equals(BUM_UUID)) {
+                        threatScore += 15;
+                    } else if (targetPlayer.getName().getString().equals(BOOMER_NAME) || targetPlayer.getUuid().toString().equals(BOOMER_UUID)) {
+                        threatScore += 25;
+                    } else {
+                        threatScore += 10;
+                    }
                 }
-                else if (targetPlayer.getName().getString().equals(BOOMER_NAME) || targetPlayer.getUuid().toString().equals(BOOMER_UUID)) {
-                    threatScore += 25;
-                }
-                else {
-                    threatScore += 10;
-                }
-            } else if (entity instanceof WitherEntity) {
+            }
+            else if (entity instanceof WitherEntity) {
                 threatScore += 10;
-            } else if (entity instanceof CreeperEntity creeper) {
+            }
+            else if (entity instanceof CreeperEntity creeper) {
                 if (creeper.isCharged()) {
                     threatScore += 10;
                 }

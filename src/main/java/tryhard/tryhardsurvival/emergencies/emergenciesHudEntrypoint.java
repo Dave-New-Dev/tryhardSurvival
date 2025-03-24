@@ -8,7 +8,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderTickCounter;
+import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 public final class emergenciesHudEntrypoint implements ClientModInitializer {
@@ -19,9 +21,9 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
     };
 
     public static int blowTrumpet() {
-        int currentThreatScore = dangerScoreMgmt.getThreatScore();
+        int currentThreatScore = threatScoreMgmt.getThreatScore();
 
-        if (currentThreatScore >= 20 && currentThreatScore < 50) {
+        if (currentThreatScore >= 10 && currentThreatScore < 50) {
             return 1;
         } else if (currentThreatScore >= 50 && currentThreatScore < 80) {
             return 2;
@@ -33,7 +35,7 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        dangerScoreMgmt.init();
+        threatScoreMgmt.init();
 
         int emergencyLvl = emergenciesHudEntrypoint.blowTrumpet();
         if (emergencyLvl != 0) {
@@ -42,8 +44,17 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("dangerscore")
             .executes(context -> {
-                String threatScore = String.valueOf(dangerScoreMgmt.getThreatScore());
-                context.getSource().sendFeedback(Text.literal(String.join("<Angela>: The current threat score is",threatScore)));
+                int threatScore = threatScoreMgmt.getThreatScore();
+                Formatting formatColor = Formatting.WHITE;
+                if (emergencyLvl == 0) { formatColor = Formatting.GRAY; }
+                else if (emergencyLvl == 1) { formatColor = Formatting.YELLOW; }
+                else if (emergencyLvl >= 2) { formatColor = Formatting.RED; }
+                Text message = Text.literal("<Angela>: The current threat score is: " + threatScore)
+                        .formatted(formatColor)
+                        .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                Text.literal("Threat score detection sys"))));
+
+                context.getSource().sendFeedback(message);
                 return 1;
             })));
     }
