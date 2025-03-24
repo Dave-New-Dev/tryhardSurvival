@@ -3,6 +3,7 @@ package tryhard.tryhardsurvival.emergencies;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.HudLayerRegistrationCallback;
 import net.fabricmc.fabric.api.client.rendering.v1.IdentifiedLayer;
 import net.minecraft.client.gui.DrawContext;
@@ -20,24 +21,13 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
             Identifier.of("tryhardsurvival", "/textures/hud/emergency3.png")
     };
 
-    public static int blowTrumpet() {
-        int currentThreatScore = threatScoreMgmt.getThreatScore();
-
-        if (currentThreatScore >= 10 && currentThreatScore < 50) {
-            return 1;
-        } else if (currentThreatScore >= 50 && currentThreatScore < 80) {
-            return 2;
-        } else if (currentThreatScore >= 80) {
-            return 3;
-        }
-        return 0;
-    }
 
     @Override
     public void onInitializeClient() {
         threatScoreMgmt.init();
+        trumpeteer.init();
 
-        int emergencyLvl = emergenciesHudEntrypoint.blowTrumpet();
+        int emergencyLvl = trumpeteer.blowTrumpet();
         if (emergencyLvl != 0) {
             HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerBefore(IdentifiedLayer.CHAT, trumpets[emergencyLvl], emergenciesHudEntrypoint::onRenderGUI));
         }
@@ -46,13 +36,21 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
             .executes(context -> {
                 int threatScore = threatScoreMgmt.getThreatScore();
                 Formatting formatColor = Formatting.WHITE;
-                if (emergencyLvl == 0) { formatColor = Formatting.GRAY; }
-                else if (emergencyLvl == 1) { formatColor = Formatting.YELLOW; }
-                else if (emergencyLvl >= 2) { formatColor = Formatting.RED; }
-                Text message = Text.literal("<Angela>: The current threat score is: " + threatScore)
-                        .formatted(formatColor)
-                        .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                Text.literal("Threat score detection sys"))));
+
+                Text message = Text.literal("null");
+                if (emergencyLvl == 0) {
+                    message = Text.literal("<Angela>: The facility is at safety, for now.")
+                            .formatted(formatColor)
+                            .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                    Text.literal("Threat score detection sys"))));
+                } else if (emergencyLvl > 0) {
+                    if (emergencyLvl == 1) { formatColor = Formatting.YELLOW; }
+                    else if (emergencyLvl == 2 || emergencyLvl == 3) { formatColor = Formatting.RED; }
+                    message = Text.literal("<Angela>: The current threat score is: " + threatScore)
+                            .formatted(formatColor)
+                            .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                    Text.literal("Threat score detection sys"))));
+                }
 
                 context.getSource().sendFeedback(message);
                 return 1;
@@ -64,7 +62,7 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
         int y = 720;
         int w = 1280;
         int h = 720;
-        drawContext.drawTexture(RenderLayer::getGuiTextured, trumpets[emergenciesHudEntrypoint.blowTrumpet()], x, y,
+        drawContext.drawTexture(RenderLayer::getGuiTextured, trumpets[trumpeteer.blowTrumpet()], x, y,
                 0, 0, w, h, w, h);
     }
 }
