@@ -9,6 +9,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.text.HoverEvent;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
@@ -25,12 +26,11 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
         threatScoreMgmt.init();
         trumpeteer.init();
 
-        int emergencyLvl = trumpeteer.blowTrumpet();
-        if (emergencyLvl != 0) {
-            HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerBefore(IdentifiedLayer.CHAT, trumpets[emergencyLvl], emergenciesHudEntrypoint::onRenderGUI));
+        if (trumpeteer.getEmergencyLvl() != 0) {
+            HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> layeredDrawer.attachLayerBefore(IdentifiedLayer.CHAT, trumpets[trumpeteer.getEmergencyLvl()], emergenciesHudEntrypoint::onRenderGUI));
         }
 
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("dangerscore")
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("threatscore")
             .executes(context -> {
                 int threatScore = threatScoreMgmt.getThreatScore();
 //                Formatting formatColor = Formatting.WHITE;
@@ -51,10 +51,22 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
 //                }
 //
 //                context.getSource().sendFeedback(message);
-                Text message = Text.literal(String.join("Danger score:",String.valueOf(threatScore),"\nEmergency level:",String.valueOf(emergencyLvl)));
+                Text message = Text.literal("<Angela>: The current threat score is " + threatScore)
+                        .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                Text.literal("Threat score detection sys"))));
                 context.getSource().sendFeedback(message);
                 return 1;
             })));
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("emergencylvl")
+                .executes(context -> {
+                    int trumpetLvl = trumpeteer.getEmergencyLvl();
+
+                    Text message = Text.literal("<Angela>: The current emergency level is " + trumpetLvl)
+                            .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                   Text.literal("Trumpet protocol sys"))));
+                    context.getSource().sendFeedback(message);
+                    return 1;
+                })));
     }
 
     private static void onRenderGUI(DrawContext drawContext, RenderTickCounter renderTickCounter) {
@@ -62,7 +74,7 @@ public final class emergenciesHudEntrypoint implements ClientModInitializer {
         int y = 720;
         int w = 1280;
         int h = 720;
-        drawContext.drawTexture(RenderLayer::getGuiTextured, trumpets[trumpeteer.blowTrumpet()], x, y,
+        drawContext.drawTexture(RenderLayer::getGuiTextured, trumpets[trumpeteer.getEmergencyLvl()], x, y,
                 0, 0, w, h, w, h);
     }
 }

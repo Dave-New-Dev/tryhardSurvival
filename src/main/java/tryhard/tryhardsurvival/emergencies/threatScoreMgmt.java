@@ -35,7 +35,6 @@ public class threatScoreMgmt {
     public static void updateThreatScore(PlayerEntity player, ClientWorld world) {
         if (player == null || world == null) return;
 
-        // reset radar for every scan
         threatScore = 0;
         Vec3d playerPosition = player.getPos();
         Box detectionBox = new Box(playerPosition.subtract(DETECTION_RADIUS, DETECTION_RADIUS, DETECTION_RADIUS),
