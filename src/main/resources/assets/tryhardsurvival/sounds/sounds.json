@@ -1,0 +1,20 @@
+{
+  "emergency1": {
+    "subtitle": "sound.tryhardsurvival.emergency1",
+    "sounds": [
+      "tryhardsurvival:emergency1"
+    ]
+  },
+  "emergency2": {
+    "subtitle": "sound.tryhardsurvival.emergency2",
+    "sounds": [
+      "tryhardsurvival.emergency2"
+    ]
+  },
+  "emergency3": {
+    "subtitle": "sound.tryhardsurvival.emergency3",
+    "sounds": [
+      "tryhardsurvival:emergency3"
+    ]
+  }
+}

@@ -18,6 +18,7 @@ public class mainEntrypoint implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// da logger 👍👌
 		java.util.Random random = new java.util.Random();
 		int random_helloworld = random.nextInt(helloworlds.length);
 		LOGGER.info(String.join("<A>:",helloworlds[random_helloworld]));
