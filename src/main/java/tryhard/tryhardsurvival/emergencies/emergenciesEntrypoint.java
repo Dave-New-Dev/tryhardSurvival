@@ -14,9 +14,8 @@ public final class emergenciesEntrypoint implements ClientModInitializer {
     public void onInitializeClient() {
         threatScoreMgmt.init();
         emergencyLvlMgmt.init();
-        standard_angela.init();
+        angelos.init();
         emergenciesHudRenderer.init();
-
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("angelos")
                 .executes(context -> {

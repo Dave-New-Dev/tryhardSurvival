@@ -6,7 +6,7 @@ import net.minecraft.text.HoverEvent;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
-public class standard_angela {
+public class angelos {
     private static int lastEmergencyLvl = -1;
 
     public static void init() {
@@ -17,14 +17,14 @@ public class standard_angela {
                 lastEmergencyLvl = currentEmergencyLvl;
 
                 if (currentEmergencyLvl > -1) {
-                    angelos(currentEmergencyLvl);
+                    angela(currentEmergencyLvl);
                     trumpeter.blowTrumpet();
                 }
             }
         });
     }
     
-    private static void angelos(int emergencyLvl) {
+    private static void angela(int emergencyLvl) {
         MinecraftClient client = MinecraftClient.getInstance();
 
         if (client.player != null) {
