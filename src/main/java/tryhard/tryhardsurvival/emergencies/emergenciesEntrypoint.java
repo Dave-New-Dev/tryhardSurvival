@@ -14,7 +14,7 @@ public final class emergenciesEntrypoint implements ClientModInitializer {
     public void onInitializeClient() {
         threatScoreMgmt.init();
         emergencyLvlMgmt.init();
-        trumpeter.init();
+        standard_angela.init();
         emergenciesHudRenderer.init();
 
 
