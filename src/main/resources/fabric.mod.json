@@ -19,7 +19,7 @@
 			"tryhard.tryhardsurvival.mainEntrypoint"
 		],
 		"client": [
-			"tryhard.tryhardsurvival.emergencies.emergenciesHudEntrypoint"
+          "tryhard.tryhardsurvival.emergencies.emergenciesEntrypoint"
 		]
 	},
 	"mixins": [

@@ -8,7 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 
-public final class emergenciesHudEntrypoint implements ClientModInitializer {
+public final class emergenciesEntrypoint implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
