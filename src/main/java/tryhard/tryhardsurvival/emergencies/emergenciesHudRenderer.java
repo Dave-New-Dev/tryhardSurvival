@@ -27,10 +27,15 @@ public class emergenciesHudRenderer {
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.world == null) return;
 
-        int width = context.getScaledWindowWidth();
-        int height = context.getScaledWindowHeight();
+        int screenWidth = context.getScaledWindowWidth();
+        int screenHeight = context.getScaledWindowHeight();
 
-        context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvlMgmt.getEmergencyLvl()-1], 0, 0, 0, 0, width, height, width, height);
+        // Draw full-screen image
+        context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvlMgmt.getEmergencyLvl() - 1],
+                0, 0,  // X, Y position (top-left corner)
+                0, 0,  // Texture X, Texture Y
+                screenWidth, screenHeight,  // Width and height (fill the screen)
+                screenWidth, screenHeight); // Texture width and height (scale to fit)
     }
 
 }
