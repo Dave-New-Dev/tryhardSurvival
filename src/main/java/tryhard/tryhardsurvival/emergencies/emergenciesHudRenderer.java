@@ -17,12 +17,12 @@ public class emergenciesHudRenderer {
 
     public static void init() {
         HudLayerRegistrationCallback.EVENT.register(layeredDrawer -> {
-            layeredDrawer.attachLayerBefore(IdentifiedLayer.CHAT, trumpets[trumpeteer.getEmergencyLvl()], emergenciesHudRenderer::renderHUD);
+            layeredDrawer.attachLayerBefore(IdentifiedLayer.CHAT, trumpets[emergencyLvlMgmt.getEmergencyLvl()], emergenciesHudRenderer::renderHUD);
         });
     }
 
     private static void renderHUD(DrawContext context, RenderTickCounter tickCounter) {
-        if (trumpeteer.getEmergencyLvl() == 0) return;
+        if (emergencyLvlMgmt.getEmergencyLvl() == 0) return;
 
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.world == null) return;
@@ -30,7 +30,7 @@ public class emergenciesHudRenderer {
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();
 
-        context.drawTexture(RenderLayer::getGuiTextured, trumpets[trumpeteer.getEmergencyLvl()], 0, 0, 0, 0, width, height, 1280, 720);
+        context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvlMgmt.getEmergencyLvl()], 0, 0, 0, 0, width, height, 1280, 720);
     }
 
 }

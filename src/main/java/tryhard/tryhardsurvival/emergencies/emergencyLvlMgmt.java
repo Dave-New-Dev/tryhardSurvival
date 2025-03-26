@@ -3,7 +3,7 @@ package tryhard.tryhardsurvival.emergencies;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import static tryhard.tryhardsurvival.emergencies.threatScoreMgmt.getThreatScore;
 
-public class trumpeteer {
+public class emergencyLvlMgmt {
 
     private static int trumpetLvl = 0;
 
