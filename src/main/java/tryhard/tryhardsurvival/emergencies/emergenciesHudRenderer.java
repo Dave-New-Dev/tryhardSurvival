@@ -30,7 +30,7 @@ public class emergenciesHudRenderer {
         int width = context.getScaledWindowWidth();
         int height = context.getScaledWindowHeight();
 
-        context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvlMgmt.getEmergencyLvl()], 0, 0, 0, 0, width, height, 1280, 720);
+        context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvlMgmt.getEmergencyLvl()], 0, 0, 0, 0, width, height, 1920, 1080);
     }
 
 }
