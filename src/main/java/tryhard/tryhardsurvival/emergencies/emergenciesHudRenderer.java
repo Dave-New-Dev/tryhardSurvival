@@ -39,7 +39,6 @@ public class emergenciesHudRenderer {
 
         context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvl - 1], 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
 
-        context.getMatrices().pop();
         RenderSystem.disableBlend();
     }
 
