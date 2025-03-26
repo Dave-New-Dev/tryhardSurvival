@@ -23,7 +23,8 @@ public class emergenciesHudRenderer {
     }
 
     private static void renderHUD(DrawContext context, RenderTickCounter tickCounter) {
-        if (emergencyLvlMgmt.getEmergencyLvl() == 0) return;
+        int emergencyLvl = emergencyLvlMgmt.getEmergencyLvl();
+        if (emergencyLvl == 0) return;
 
         MinecraftClient client = MinecraftClient.getInstance();
         if (client.player == null || client.world == null) return;
@@ -36,11 +37,7 @@ public class emergenciesHudRenderer {
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 0.75F);
 
-        // always on top
-        context.getMatrices().push();
-        context.getMatrices().translate(0, 0, 1000);
-
-        context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvlMgmt.getEmergencyLvl() - 1], 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
+        context.drawTexture(RenderLayer::getGuiTextured, trumpets[emergencyLvl - 1], 0, 0, 0, 0, screenWidth, screenHeight, screenWidth, screenHeight);
 
         context.getMatrices().pop();
         RenderSystem.disableBlend();

@@ -18,7 +18,7 @@ public class angelos {
 
                 if (currentEmergencyLvl > -1) {
                     angela(currentEmergencyLvl);
-                    trumpeter.blowTrumpet();
+                    trumpeter.blowTrumpet(currentEmergencyLvl);
                 }
             }
         });

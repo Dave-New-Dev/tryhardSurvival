@@ -19,6 +19,7 @@ public class threatScoreMgmt {
     private static final String URSELF_UUID = "51f808d5-2853-4b2a-bc41-14cb1b6ce048";
     private static final String BUM_NAME = "l_tryhard_l";
     private static final String BUM_UUID = "0507dee5-ecff-480f-97d2-ef23cd163876";
+    // add server owner name
     private static final String BOOMER_NAME = "placeholder";
     private static final String BOOMER_UUID = "placeholder";
 
@@ -49,9 +50,12 @@ public class threatScoreMgmt {
                 if (!targetPlayer.getName().getString().equals(URSELF_NAME) && !targetPlayer.getUuid().toString().equals(URSELF_UUID)) {
                     if (targetPlayer.getName().getString().equals(BUM_NAME) || targetPlayer.getUuid().toString().equals(BUM_UUID)) {
                         threatScore += 15;
-                    } else if (targetPlayer.getName().getString().equals(BOOMER_NAME) || targetPlayer.getUuid().toString().equals(BOOMER_UUID)) {
+                    }
+                    // add server owner name!!!
+                    else if (targetPlayer.getName().getString().equals(BOOMER_NAME) || targetPlayer.getUuid().toString().equals(BOOMER_UUID)) {
                         threatScore += 25;
-                    } else {
+                    }
+                    else {
                         threatScore += 10;
                     }
                 }

@@ -13,10 +13,11 @@ public class trumpeter {
             Identifier.of("tryhardsurvival", "/sounds/emergency3.ogg")
     };
 
-    public static void blowTrumpet() {
+    public static void blowTrumpet(int emergencyLvl) {
         if (MinecraftClient.getInstance().player == null) return;
+        if (emergencyLvl <= 0) return;
 
-        SoundEvent soundEvent = Registries.SOUND_EVENT.get(trumpets[emergencyLvlMgmt.getEmergencyLvl()-1]);
+        SoundEvent soundEvent = Registries.SOUND_EVENT.get(trumpets[emergencyLvl-1]);
         if (soundEvent != null) {
             MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(soundEvent, 1.0F, 1.0F));
         }
