@@ -16,7 +16,7 @@ public class trumpeter {
             if (currentEmergencyLvl != lastEmergencyLvl) {
                 lastEmergencyLvl = currentEmergencyLvl;
 
-                if (currentEmergencyLvl > 0) {
+                if (currentEmergencyLvl > -1) {
                     angelos(currentEmergencyLvl);
                 }
             }
