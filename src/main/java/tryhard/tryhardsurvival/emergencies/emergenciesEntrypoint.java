@@ -25,10 +25,6 @@ public final class emergenciesEntrypoint implements ClientModInitializer {
                     Text AngelaDesc = Text.literal("I am Angela, an AI. I am your assistant, your secretary, and someone to whom you can talk. I hope I can help make your time here a little more comfortable.");
 
                     Text message = switch (emergencyLvl) {
-                        default -> Text.literal("<Angela>: The situation is back to normal; everybody back to work.")
-                                .formatted(Formatting.WHITE)
-                                .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-                                        AngelaDesc)));
                         case 1 -> Text.literal("<Angela>: The current threat score is at " + threatScore + ". First trumpet protocols are in effect. Employees are to proceed with caution and supress all abnormalities on sight.")
                                     .formatted(Formatting.YELLOW)
                                     .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -42,6 +38,10 @@ public final class emergenciesEntrypoint implements ClientModInitializer {
                                     .formatted(Formatting.DARK_RED)
                                     .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
                                             AngelaDesc)));
+                        default -> Text.literal("<Angela>: The situation is back to normal; everybody back to work.")
+                                .formatted(Formatting.WHITE)
+                                .styled(style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+                                        AngelaDesc)));
                     };
 
                     context.getSource().sendFeedback(message);
