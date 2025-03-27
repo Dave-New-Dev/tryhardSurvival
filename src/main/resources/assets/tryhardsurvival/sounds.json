@@ -1,0 +1,11 @@
+{
+  "emergency1": {
+    "sounds": [{ "name": "tryhardsurvival:emergency1", "stream": true }]
+  },
+  "emergency2": {
+    "sounds": [{ "name": "tryhardsurvival:emergency2", "stream": true }]
+  },
+  "emergency3": {
+    "sounds": [{ "name": "tryhardsurvival:emergency3", "stream": true }]
+  }
+}

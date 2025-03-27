@@ -19,9 +19,8 @@ public class threatScoreMgmt {
     private static final String URSELF_UUID = "51f808d5-2853-4b2a-bc41-14cb1b6ce048";
     private static final String BUM_NAME = "l_tryhard_l";
     private static final String BUM_UUID = "0507dee5-ecff-480f-97d2-ef23cd163876";
-    // add server owner name
-    private static final String BOOMER_NAME = "placeholder";
-    private static final String BOOMER_UUID = "placeholder";
+    private static final String BOOMER_NAME = "ImHappyLive";
+    private static final String BOOMER_UUID = "38a3f7cc-c5ca-420f-bfa7-5e82f87d40e2";
 
     private static final double DETECTION_RADIUS = 150.0;
 
@@ -51,10 +50,11 @@ public class threatScoreMgmt {
                     if (targetPlayer.getName().getString().equals(BUM_NAME) || targetPlayer.getUuid().toString().equals(BUM_UUID)) {
                         threatScore += 15;
                     }
-                    // add server owner name!!!
+                    // for the boomer
                     else if (targetPlayer.getName().getString().equals(BOOMER_NAME) || targetPlayer.getUuid().toString().equals(BOOMER_UUID)) {
                         threatScore += 25;
                     }
+                    // for the others
                     else {
                         threatScore += 10;
                     }
