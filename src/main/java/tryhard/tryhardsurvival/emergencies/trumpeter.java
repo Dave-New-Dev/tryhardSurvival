@@ -10,10 +10,10 @@ public class trumpeter {
         if (MinecraftClient.getInstance().player == null) return;
         if (emergencyLvl <= 0) return;
 
-        SoundEvent trumpet = registerTrumpets.emergencies[emergencyLvl - 1];
+        SoundEvent trumpet = registerTrumpets.EMERGENCIES[emergencyLvl - 1];
 
         if (trumpet != null) {
-            MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.music(trumpet));
+            MinecraftClient.getInstance().getSoundManager().play(PositionedSoundInstance.master(trumpet,1.0F,1.0F));
         }
     }
 }
