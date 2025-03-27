@@ -16,7 +16,7 @@ public final class emergenciesEntrypoint implements ClientModInitializer {
         emergencyLvlMgmt.init();
         angelos.init();
         emergenciesHudRenderer.init();
-        registerTrumpets.init();
+        trumpeter.init();
 
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(ClientCommandManager.literal("angelos")
                 .executes(context -> {
