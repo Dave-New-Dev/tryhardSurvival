@@ -1,11 +1,14 @@
 {
   "emergency1": {
-    "sounds": [{ "name": "tryhardsurvival:emergency1", "stream": true }]
+    "subtitle": "sound.tryhardsurvival.emergency1",
+    "sounds": ["tryhardsurvival:emergency1"]
   },
   "emergency2": {
-    "sounds": [{ "name": "tryhardsurvival:emergency2", "stream": true }]
+    "subtitle": "sound.tryhardsurvival.emergency2",
+    "sounds": ["tryhardsurvival:emergency2"]
   },
   "emergency3": {
-    "sounds": [{ "name": "tryhardsurvival:emergency3", "stream": true }]
+    "subtitle": "sound.tryhardsurvival.emergency1",
+    "sounds": ["tryhardsurvival:emergency3"]
   }
 }
